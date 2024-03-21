@@ -17,20 +17,39 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Signup() {
+  const Navigate = useNavigate();
   const [username, setusername] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
 
-  const handleSubmit=()=>{
-    console.log(username,email,password)
-  }
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post("/api/auth/signup", {
+        username: username,
+        email: email,
+        password: password,
+      });
+
+      const data = response.data;
+      setusername("");
+      setemail("");
+      setpassword("");
+      console.log(data);
+      Navigate("/");
+    } catch (error) {
+      toast(error.response.data.message);
+    }
+  };
   return (
     <div className="w-full h-[100vh] bg-black flex flex-col gap-8 items-center justify-center">
       <h1 className="w-1/2 text-2xl text-white text-center ">welcome</h1>
-
+      <ToastContainer />
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>Create account</CardTitle>
@@ -41,15 +60,36 @@ export default function Signup() {
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="username">Username</Label>
-                <Input id="username" value={username} onChange={(e)=>{setusername(e.target.value)}} placeholder="your username" />
+                <Input
+                  id="username"
+                  value={username}
+                  onChange={(e) => {
+                    setusername(e.target.value);
+                  }}
+                  placeholder="your username"
+                />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" value={email}  onChange={(e)=>{setemail(e.target.value)}} placeholder="your email" />
+                <Input
+                  id="email"
+                  value={email}
+                  onChange={(e) => {
+                    setemail(e.target.value);
+                  }}
+                  placeholder="your email"
+                />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" value={password}  onChange={(e)=>{setpassword(e.target.value)}}  placeholder="your password" />
+                <Input
+                  id="password"
+                  value={password}
+                  onChange={(e) => {
+                    setpassword(e.target.value);
+                  }}
+                  placeholder="your password"
+                />
               </div>
             </div>
           </form>
@@ -58,11 +98,7 @@ export default function Signup() {
           <Link to={"/signin"}>
             <Button variant="outline">Already have an account? SignIn</Button>
           </Link>
-          <Button
-            onClick={() => {
-              handleSubmit
-            }}
-          >
+          <Button type="submit" onClick={handleSubmit}>
             Submit
           </Button>
         </CardFooter>

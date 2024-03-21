@@ -9,23 +9,39 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Signin() {
-    const [email, setemail] = useState("")
-    const [password, setpassword] = useState("")
+  const Navigate = useNavigate();
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post("/api/auth/signin", {
+        email: email,
+        password: password,
+      });
+
+      const data = response.data;
+      setemail("");
+      setpassword("");
+      console.log(data);
+      Navigate("/");
+      
+    } catch (error) {
+      toast(error.response.data.message);
+      console.log(error)
+    }
+  };
+
   return (
     <div className="w-full h-[100vh] bg-black flex flex-col gap-8 items-center justify-center">
       <h1 className="w-1/2 text-2xl text-white text-center ">welcome</h1>
-
+      <ToastContainer />
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>Fill in the details</CardTitle>
@@ -36,13 +52,25 @@ export default function Signin() {
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="your email" />
+                <Input
+                  id="email"
+                  value={email}
+                  onChange={(e) => {
+                    setemail(e.target.value);
+                  }}
+                  type="email"
+                  placeholder="your email"
+                />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
                   type="password"
+                  value={password}
+                  onChange={(e) => {
+                    setpassword(e.target.value);
+                  }}
                   placeholder="your password"
                 />
               </div>
@@ -53,7 +81,9 @@ export default function Signin() {
           <Link to={"/signup"}>
             <Button variant="outline">Don't Have an account? Register</Button>
           </Link>
-          <Button>Submit</Button>
+          <Button type="submit" onClick={handleSubmit}>
+            Submit
+          </Button>
         </CardFooter>
       </Card>
     </div>
