@@ -1,12 +1,16 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import jobRoutes from "./routes/job.route.js";
 const app = express();
-app.use(express.json())
+app.use(cookieParser());
+app.use(express.json());
 dotenv.config();
 const port = 3000;
 import authRoutes from "./routes/auth.route.js";
 app.use("/api/auth", authRoutes);
+app.use("/api/job", jobRoutes);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

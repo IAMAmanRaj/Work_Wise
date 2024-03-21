@@ -1,6 +1,9 @@
-import Job from "../models/job.model";
+import Job from "../models/job.model.js";
 import { errorHandler } from "../utils/error.js";
+
 export const create = async (req, res, next) => {
+  console.log(req.user);
+
   if (!req.user.isAdmin) {
     return next(errorHandler(403, "You are not allowed to create a job"));
   }
@@ -10,6 +13,7 @@ export const create = async (req, res, next) => {
 
   const newJob = new Job({
     ...req.body,
+    userId: req.user.id,
   });
   try {
     const savedJob = await newJob.save();
@@ -51,6 +55,7 @@ export const getJobs = async (req, res, next) => {
 };
 
 export const updateJob = async (req, res, next) => {
+  console.log("hi from updateJob");
   if (!req.user.isAdmin || req.user.id !== req.params.userId) {
     return next(errorHandler(403, "You are not allowed to update this job"));
   }
@@ -61,7 +66,7 @@ export const updateJob = async (req, res, next) => {
   try {
     const job = await Job.findById(req.params.jobId);
 
-    const updatedjob = await job.findByIdAndUpdate(
+    const updatedjob = await Job.findByIdAndUpdate(
       req.params.jobId,
       {
         $set: {
@@ -82,11 +87,12 @@ export const updateJob = async (req, res, next) => {
 };
 
 export const deleteJob = async (req, res, next) => {
+  console.log();
   if (!req.user.isAdmin || req.user.id !== req.params.userId) {
     return next(errorHandler(403, "You are not allowed to delete this Job"));
   }
   try {
-    await job.findByIdAndDelete(req.params.jobId);
+    await Job.findByIdAndDelete(req.params.jobId);
     res.status(200).json("The Job has been deleted");
   } catch (error) {
     next(error);
