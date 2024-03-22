@@ -9,29 +9,26 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import {useSelector , useDispatch} from "react-redux"
+import { useDispatch } from "react-redux";
 
-import { signInStart, signInSuccess, signInFailure} from "../redux/user/user.slice";
-import { current } from "@reduxjs/toolkit";
-
-
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/user.slice";
 
 export default function Signin() {
   const Navigate = useNavigate();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  
-const {currentUser}=useSelector((state)=>state.user);
 
-
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
   const handleSubmit = async () => {
-
     dispatch(signInStart());
 
     try {
@@ -42,15 +39,13 @@ const {currentUser}=useSelector((state)=>state.user);
 
       const data = response.data;
       dispatch(signInSuccess(data));
-      
+
       console.log(data);
       Navigate("/");
-     
-      
     } catch (error) {
       toast(error.response.data.message);
       dispatch(signInFailure(error.response.data.message));
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -94,8 +89,8 @@ const {currentUser}=useSelector((state)=>state.user);
           </form>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Link to={"/signup"}   onClick={() => dispatch(signInFailure(null))}>
-            <Button  variant="outline">Don't Have an account? Register</Button>
+          <Link to={"/signup"} onClick={() => dispatch(signInFailure(null))}>
+            <Button variant="outline">Don't Have an account? Register</Button>
           </Link>
           <Button type="submit" onClick={handleSubmit}>
             Submit

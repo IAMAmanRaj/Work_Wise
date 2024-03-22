@@ -5,7 +5,7 @@ import React from "react";
 import Home from "./pages/Home";
 
 import Signin from "./pages/Signin";
-
+import ManageJobs from "./pages/ManageJobs";
 import Signup from "./pages/Signup";
 
 
@@ -21,6 +21,7 @@ function App() {
           
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/ManageJobs" element={<ManageJobs/>}/>
 
         </Routes>
        

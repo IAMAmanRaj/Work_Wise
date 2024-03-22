@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -26,6 +27,7 @@ export default function Signup() {
   const Navigate = useNavigate();
   const [username, setusername] = useState("");
   const [email, setemail] = useState("");
+  const [isAdmin, setisAdmin] = useState(false);
   const [password, setpassword] = useState("");
 
   const handleSubmit = async () => {
@@ -34,11 +36,13 @@ export default function Signup() {
         username: username,
         email: email,
         password: password,
+        isAdmin:isAdmin
       });
 
       const data = response.data;
       setusername("");
       setemail("");
+      setisAdmin(false)
       setpassword("");
       console.log(data);
       Navigate("/signin");
@@ -80,6 +84,7 @@ export default function Signup() {
                   placeholder="your email"
                 />
               </div>
+
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="password">Password</Label>
                 <Input
@@ -90,6 +95,15 @@ export default function Signup() {
                   }}
                   placeholder="your password"
                 />
+              </div>
+              <div className="flex  space-x-1.5">
+                <Checkbox id="terms"  defaultChecked={isAdmin} onClick={()=>{setisAdmin(!isAdmin)}} />
+                <label
+                  htmlFor="terms"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  SignUp as Admin
+                </label>
               </div>
             </div>
           </form>
