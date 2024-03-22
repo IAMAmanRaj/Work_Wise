@@ -41,7 +41,7 @@ export default function Signup() {
       setemail("");
       setpassword("");
       console.log(data);
-      Navigate("/");
+      Navigate("/signin");
     } catch (error) {
       toast(error.response.data.message);
     }
