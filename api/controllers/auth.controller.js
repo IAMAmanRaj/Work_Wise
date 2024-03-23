@@ -4,14 +4,19 @@ import { errorHandler } from "../utils/error.js";
 import User from "../models/user.model.js";
 
 export const signup = async (req, res, next) => {
-  const { username, email, password,isAdmin } = req.body;
+  const { username, email, password, isAdmin } = req.body;
   const existingUser = await User.findOne({ $or: [{ username }, { email }] });
   if (existingUser) {
     res.status(400).json({ message: "Username or Email already exists" });
   }
   const hashedPassword = bcryptjs.hashSync(password, 10);
 
-  const newUser = new User({ username, email, password: hashedPassword,isAdmin });
+  const newUser = new User({
+    username,
+    email,
+    password: hashedPassword,
+    isAdmin,
+  });
 
   try {
     await newUser.save();
@@ -44,12 +49,16 @@ export const signin = async (req, res, next) => {
     const expiryDate = new Date(Date.now() + 3600000);
 
     res
-      .cookie("access_token", token, { httpOnly: true, expires: expiryDate })
+      .cookie("access_token", token, {
+        httpOnly: true,
+        secure: true,
+        expires: expiryDate,
+      })
       .status(200)
       .json(rest);
-  } catch (error) { 
+  } catch (error) {
     next(error);
-  } 
+  }
 };
 
 export const signout = (req, res) => {

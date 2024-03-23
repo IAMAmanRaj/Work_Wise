@@ -5,11 +5,17 @@ import cors from "cors";
 import dotenv from "dotenv";
 import jobRoutes from "./routes/job.route.js";
 const app = express();
-app.use(cors());
+
+const corsOptions = {
+  origin: "https://workwiseclient.netlify.app/",
+  credentials: true, // This allows the session cookie to be sent back and forth
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
+
 app.use(cookieParser());
 app.use(express.json());
-import path from "path";
-
 dotenv.config();
 const port = 3000;
 import authRoutes from "./routes/auth.route.js";
@@ -24,12 +30,6 @@ app.use((err, req, res, next) => {
     message,
     statusCode,
   });
-});
-
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, "/client/dist")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
 
 mongoose
