@@ -7,7 +7,7 @@ import jobRoutes from "./routes/job.route.js";
 const app = express();
 
 const corsOptions = {
-  origin: "https://work-wise-eulz.onrender.com",
+  origin: "https://workwiseclient.netlify.app",
   credentials: true, // This allows the session cookie to be sent back and forth
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
