@@ -18,7 +18,7 @@ const Home = () => {
   const { jobs } = useSelector((state) => state.job);
   const handleSignout = async () => {
     try {
-      await axios.get("/api/auth/sign-out");
+      await axios.get("https://work-wise-eulz.onrender.com/api/auth/sign-out");
       Dispatch(signoutSuccess());
       Navigate("/signin");
     } catch (error) {
@@ -27,7 +27,7 @@ const Home = () => {
   };
   const fetchJobs = async () => {
     try {
-      const response = await axios.get("/api/job/getjobs");
+      const response = await axios.get("https://work-wise-eulz.onrender.com/api/job/getjobs");
       const data = response.data;
       Dispatch(setJobs(data.jobs));
     } catch (error) {
@@ -38,7 +38,7 @@ const Home = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `/api/job/getjobs?searchTerm=${searchTerm}`
+        `https://work-wise-eulz.onrender.com/api/job/getjobs?searchTerm=${searchTerm}`
       );
       setsearchedJobs(response.data.jobs);
     } catch (error) {

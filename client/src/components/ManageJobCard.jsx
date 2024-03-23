@@ -40,25 +40,40 @@ export function ManageJobCard({
 
   const handledelete = async () => {
     try {
+      const token = 'access_token'; 
       const response = await axios.delete(
-        `/api/job/deletejob/${_id}/${userId}`
+        `https://work-wise-eulz.onrender.com/api/job/deletejob/${_id}/${userId}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
       );
       Dispatch(deleteJobSuccess(_id));
     } catch (error) {
       console.log(error);
     }
   };
+  
   const handleupdate = async () => {
-
     try {
-      const response = await axios.post(`/api/job/updatejob/${_id}/${userId}`, {
-        company: newcompany,
-        title: newtitle,
-        description: newdescription,
-        image: newimage,
-        location: newlocation,
-      });
-      Dispatch(updateJobSuccess(response.data))
+      const token = 'access_token';
+      const response = await axios.post(
+        `https://work-wise-eulz.onrender.com/api/job/updatejob/${_id}/${userId}`,
+        {
+          company: newcompany,
+          title: newtitle,
+          description: newdescription,
+          image: newimage,
+          location: newlocation,
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      );
+      Dispatch(updateJobSuccess(response.data));
     } catch (error) {
       setnewtitle(title);
       setnewcompany(company);

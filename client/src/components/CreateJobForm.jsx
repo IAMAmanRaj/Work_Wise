@@ -27,25 +27,30 @@ const CreateJobForm = ({ fetchAdminJobs }) => {
   const Dispatch = useDispatch();
     const { currentUser } = useSelector((state) => state.user);
 
-  const handleSubmit = async () => {
-    try {
-      const response = await axios.post("/api/job/create", {
-        title,
-        description,
-        image,
-        location,
-        company,
-      });
-      Dispatch(createJobSuccess(response.data));
-      setcompany("")
-      settitle("")
-      setdescription("")
-      setimage("")
-      settitle("")
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    const handleSubmit = async () => {
+      try {
+        const token = 'access_token'; // replace with your actual token
+        const response = await axios.post("https://work-wise-eulz.onrender.com/api/job/create", {
+          title,
+          description,
+          image,
+          location,
+          company,
+        }, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        Dispatch(createJobSuccess(response.data));
+        setcompany("");
+        settitle("");
+        setdescription("");
+        setimage("");
+        setlocation("");
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
   return (
     <>
