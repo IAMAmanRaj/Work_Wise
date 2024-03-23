@@ -46,7 +46,8 @@ export function ManageJobCard({
         {
           headers: {
             'Authorization': `Bearer ${token}`
-          }
+          },
+          withCredentials: true
         }
       );
       Dispatch(deleteJobSuccess(_id));
@@ -70,7 +71,8 @@ export function ManageJobCard({
         {
           headers: {
             'Authorization': `Bearer ${token}`
-          }
+          },
+          withCredentials: true
         }
       );
       Dispatch(updateJobSuccess(response.data));
@@ -84,6 +86,7 @@ export function ManageJobCard({
     }
     setModalOpen(!ModalOpen);
   };
+
   const handlecancelupdate = () => {
     setModalOpen(!ModalOpen);
     setnewtitle(title);

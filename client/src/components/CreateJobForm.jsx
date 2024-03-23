@@ -30,17 +30,22 @@ const CreateJobForm = ({ fetchAdminJobs }) => {
     const handleSubmit = async () => {
       try {
         const token = 'access_token'; // replace with your actual token
-        const response = await axios.post("https://work-wise-eulz.onrender.com/api/job/create", {
-          title,
-          description,
-          image,
-          location,
-          company,
-        }, {
-          headers: {
-            'Authorization': `Bearer ${token}`
+        const response = await axios.post(
+          "https://work-wise-eulz.onrender.com/api/job/create",
+          {
+            title,
+            description,
+            image,
+            location,
+            company,
+          },
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            withCredentials: true
           }
-        });
+        );
         Dispatch(createJobSuccess(response.data));
         setcompany("");
         settitle("");
@@ -51,7 +56,6 @@ const CreateJobForm = ({ fetchAdminJobs }) => {
         console.log(error);
       }
     };
-
   return (
     <>
       <div className="w-full md:w-1/2 mt-8 h-auto mb-4 flex justify-center items-center flex-col">
