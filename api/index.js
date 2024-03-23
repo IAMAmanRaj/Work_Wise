@@ -1,9 +1,11 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
+import cors from "cors"
 import dotenv from "dotenv";
 import jobRoutes from "./routes/job.route.js";
 const app = express();
+app.use(cors())
 app.use(cookieParser());
 app.use(express.json());
 dotenv.config();

@@ -2,7 +2,7 @@ import Job from "../models/job.model.js";
 import { errorHandler } from "../utils/error.js";
 
 export const create = async (req, res, next) => {
-  console.log(req.user);
+ 
 
   if (!req.user.isAdmin) {
     return next(errorHandler(403, "You are not allowed to create a job"));
@@ -55,7 +55,6 @@ export const getJobs = async (req, res, next) => {
 };
 
 export const updateJob = async (req, res, next) => {
-  console.log("hi from updateJob");
   if (!req.user.isAdmin || req.user.id !== req.params.userId) {
     return next(errorHandler(403, "You are not allowed to update this job"));
   }
@@ -74,6 +73,7 @@ export const updateJob = async (req, res, next) => {
 
           title: req.body.title,
           description: req.body.description,
+          company: req.body.company,
 
           image: req.body.image,
         },
@@ -87,7 +87,6 @@ export const updateJob = async (req, res, next) => {
 };
 
 export const deleteJob = async (req, res, next) => {
-  console.log();
   if (!req.user.isAdmin || req.user.id !== req.params.userId) {
     return next(errorHandler(403, "You are not allowed to delete this Job"));
   }
