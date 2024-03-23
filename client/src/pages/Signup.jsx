@@ -50,10 +50,10 @@ export default function Signup() {
     }
   };
   return (
-    <div className="w-full h-[100vh] bg-black flex flex-col gap-8 items-center justify-center">
-      <h1 className="w-1/2 text-2xl text-white text-center ">welcome</h1>
+    <div className="w-full h-[100vh] bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center flex flex-col gap-8 items-center justify-center">
+      <h1 className="w-full tracking-widest font-medium text-2xl text-black text-center ">Welcome to WorkWise</h1>
       <ToastContainer />
-      <Card className="w-[350px]">
+      <Card className="w-[350px] opacity-">
         <CardHeader>
           <CardTitle>Create account</CardTitle>
           <CardDescription>let's get started</CardDescription>
@@ -109,7 +109,7 @@ export default function Signup() {
         </CardContent>
         <CardFooter className="flex justify-between">
           <Link to={"/signin"}>
-            <Button variant="outline">Already have an account? SignIn</Button>
+            <Button variant="outline" className="text-[12px]">Already have an account? SignIn</Button>
           </Link>
           <Button type="submit" onClick={handleSubmit}>
             Submit

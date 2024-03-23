@@ -49,10 +49,10 @@ export default function Signin() {
   };
 
   return (
-    <div className="w-full h-[100vh] bg-black flex flex-col gap-8 items-center justify-center">
-      <h1 className="w-1/2 text-2xl text-white text-center ">welcome</h1>
+    <div className="w-full bg-[url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center h-[100vh]  flex flex-col gap-8 items-center justify-center">
+      <h1 className="w-full text-2xl text-white tracking-wider text-center ">Welcome to WorkWise</h1>
       <ToastContainer />
-      <Card className="w-[350px]">
+      <Card className="w-[350px] opacity-80">
         <CardHeader>
           <CardTitle>Fill in the details</CardTitle>
           <CardDescription>let's get started</CardDescription>
@@ -89,7 +89,7 @@ export default function Signin() {
         </CardContent>
         <CardFooter className="flex justify-between">
           <Link to={"/signup"} onClick={() => dispatch(signInFailure(null))}>
-            <Button variant="outline">Don't Have an account? Register</Button>
+            <Button className="text-[12px]" variant="outline">Don't Have an account? Register</Button>
           </Link>
           <Button type="submit" onClick={handleSubmit}>
             Submit
