@@ -44,7 +44,6 @@ export default function Signup() {
       setemail("");
       setisAdmin(false)
       setpassword("");
-      console.log(data);
       Navigate("/signin");
     } catch (error) {
       toast(error.response.data.message);

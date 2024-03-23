@@ -35,8 +35,8 @@ const jobSlice = createSlice({
       state.error = null;
     },
     updateJobSuccess: (state, action) => {
-      const { jobId, updatedJob } = action.payload;
-      const index = state.jobs.findIndex((job) => job.id === jobId);
+      const updatedJob  = action.payload;
+      const index = state.jobs.findIndex((job) => job._id === updatedJob._id);
       if (index !== -1) {
         state.jobs[index] = updatedJob;
       }
@@ -54,7 +54,7 @@ const jobSlice = createSlice({
     },
     deleteJobSuccess: (state, action) => {
       const jobIdToDelete = action.payload;
-      state.jobs = state.jobs.filter((job) => job.id !== jobIdToDelete);
+      state.jobs = state.jobs.filter((job) => job._id !== jobIdToDelete);
       state.loading = false;
       state.error = null;
     },

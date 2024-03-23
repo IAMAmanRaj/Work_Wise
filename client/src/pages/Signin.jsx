@@ -40,7 +40,6 @@ export default function Signin() {
       const data = response.data;
       dispatch(signInSuccess(data));
 
-      console.log(data);
       Navigate("/");
     } catch (error) {
       toast(error.response.data.message);
